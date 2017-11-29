@@ -11,6 +11,20 @@
        android:layout_width="match_parent"
        android:layout_height="match_parent"
        android:orientation="vertical">
+       <Button
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:text="Delete Post"
+           android:id="@+id/singleDesc1"
+           android:onClick="deleleteButtonClicked"
+           />
+       <Button
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:text="Edit Post"
+           android:id="@+id/editpost1"
+           android:onClick="toeditPost"
+           />
        <TextView
            android:layout_width="match_parent"
            android:layout_height="wrap_content"
