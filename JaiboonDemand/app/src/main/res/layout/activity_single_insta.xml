@@ -50,4 +50,5 @@
 
     <include layout="@layout/content_single_insta" />
 
+
 </android.support.design.widget.CoordinatorLayout>

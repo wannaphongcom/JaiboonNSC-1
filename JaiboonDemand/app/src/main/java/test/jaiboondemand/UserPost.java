@@ -99,7 +99,6 @@ public class UserPost  extends Fragment {
                     });
             }
         };
-        //FBRA.notifyItemRemoved(6);
         mIBstaList.setAdapter(FBRA);
         mAuth.addAuthStateListener(mAuthListener);
     }

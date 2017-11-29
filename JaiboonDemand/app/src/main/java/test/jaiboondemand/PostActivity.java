@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -25,6 +26,7 @@ public class PostActivity extends AppCompatActivity {
     private Uri uri = null;
     private ImageButton imageButton;
     private EditText editName;
+    private FirebaseAuth mAuth;
     private EditText editDec;
     private StorageReference storageReference;
 
@@ -36,6 +38,8 @@ public class PostActivity extends AppCompatActivity {
         setContentView(R.layout.activity_post);
         editName = (EditText) findViewById(R.id.editName);
         editDec = (EditText) findViewById(R.id.editDesc);
+        mAuth = FirebaseAuth.getInstance();
+
 
         storageReference = FirebaseStorage.getInstance().getReference();
         databaseReference = database.getInstance().getReference().child("Jaiboon");
@@ -73,6 +77,7 @@ public class PostActivity extends AppCompatActivity {
                     newPost.child("title").setValue(titleValue);
                     newPost.child("desc").setValue(titleDesc);
                     newPost.child("image").setValue(downloadurl.toString());
+                    newPost.child("userid").setValue(mAuth.getUid());
                 }
             });
             Intent intent = new Intent(PostActivity.this,Main2Activity.class);

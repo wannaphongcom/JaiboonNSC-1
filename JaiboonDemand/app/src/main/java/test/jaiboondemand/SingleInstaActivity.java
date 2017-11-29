@@ -1,5 +1,6 @@
 package test.jaiboondemand;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -7,9 +8,11 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -18,11 +21,13 @@ import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 public class SingleInstaActivity extends AppCompatActivity {
-    private  String post_key = null;
     private DatabaseReference mDatabase;
     private ImageView singlePostImage;
+    private FirebaseAuth mAuth;
     private TextView singlePostDesc;
+    private Button bn_del;
     private CollapsingToolbarLayout mCollapsing = null;
+    private String post_key;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,12 +35,14 @@ public class SingleInstaActivity extends AppCompatActivity {
         setContentView(R.layout.activity_single_insta);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        mAuth = FirebaseAuth.getInstance();
 
-        String post_key = getIntent().getExtras().getString("PostID");
+        post_key = getIntent().getExtras().getString("PostID");
         mDatabase = FirebaseDatabase.getInstance().getReference().child("Jaiboon");
 
         singlePostDesc = (TextView) findViewById(R.id.singleDesc);
         singlePostImage = (ImageView) findViewById(R.id.Image_single);
+        bn_del = (Button) findViewById(R.id.singleDesc1);
 
         mCollapsing = (CollapsingToolbarLayout) findViewById(R.id.toolbar_layout);
 
@@ -46,6 +53,17 @@ public class SingleInstaActivity extends AppCompatActivity {
                 String post_title = (String) dataSnapshot.child("title").getValue();
                 String post_desc = (String) dataSnapshot.child("desc").getValue();
                 String post_image = (String) dataSnapshot.child("image").getValue();
+                String user_id;
+                try {
+                    user_id = (String) dataSnapshot.child("userid").getValue();
+                }
+                catch(Exception e){
+                    user_id ="";
+                }
+
+                if((user_id.equals(mAuth.getUid()))==false){
+                    bn_del.setVisibility(View.INVISIBLE);
+                }
 
 
                 mCollapsing.setTitle(post_title);
@@ -58,5 +76,10 @@ public class SingleInstaActivity extends AppCompatActivity {
 
             }
         });
+    }
+    public void deleleteButtonClicked(View view) {
+        mDatabase.child(post_key).removeValue();
+        Intent mainIntent = new Intent(this,MainActivity.class);
+        startActivity(mainIntent);
     }
 }
