@@ -49,6 +49,7 @@
         <activity android:name=".AdminManager" />
         <activity android:name=".AdminPost" />
         <activity android:name=".ShopManager" />
+        <activity android:name=".EditPost" />
         <activity
             android:name=".CateGoryUser"
             android:theme="@style/Theme.AppCompat.Dialog" />

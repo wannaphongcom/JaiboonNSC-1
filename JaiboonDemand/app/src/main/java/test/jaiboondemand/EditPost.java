@@ -53,12 +53,6 @@ public class EditPost  extends AppCompatActivity {
         EditTextEditText = (EditText) findViewById(R.id.EditTextEditText);
         editDesc1 = (EditText) findViewById(R.id.editDesc1);
 
-        //singlePostDesc = (TextView) findViewById(R.id.singleDesc);
-        //singlePostImage = (ImageView) findViewById(R.id.Image_single);
-        //bn_del = (Button) findViewById(R.id.singleDesc1);
-
-        //mCollapsing = (CollapsingToolbarLayout) findViewById(R.id.toolbar_layout);
-
 
         mDatabase.child(post_key).addValueEventListener(new ValueEventListener() {
             @Override
@@ -89,7 +83,7 @@ public class EditPost  extends AppCompatActivity {
 
                 }
 
-            Intent intent = new Intent(EditPost.this,Main2Activity.class);
+            Intent intent = new Intent(this,Main2Activity.class);
             startActivity(intent);
 
         }

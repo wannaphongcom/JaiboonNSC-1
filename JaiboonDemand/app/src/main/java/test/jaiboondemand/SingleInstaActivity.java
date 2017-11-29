@@ -68,7 +68,7 @@ public class SingleInstaActivity extends AppCompatActivity {
                 }
                 }
                 catch(Exception e){
-                    
+
                 }
 
                 mCollapsing.setTitle(post_title);
@@ -88,8 +88,8 @@ public class SingleInstaActivity extends AppCompatActivity {
         startActivity(mainIntent);
     }
     public void toeditPost(View view) {
-        Intent singleInstaActivity1 = new Intent(this, EditPost.class);
-        singleInstaActivity1.putExtra("PostID", post_key);
-        startActivity(singleInstaActivity1);
+        Intent edit1 = new Intent(getApplicationContext(), EditPost.class);
+        edit1.putExtra("PostID", post_key);
+        startActivity(edit1);
     }
 }
