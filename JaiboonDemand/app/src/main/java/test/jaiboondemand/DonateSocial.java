@@ -18,15 +18,17 @@ import android.widget.TextView;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
-
-import static android.view.View.VISIBLE;
 
 public class DonateSocial extends Fragment {
     private RecyclerView mIBstaList;
     private DatabaseReference mDatabase;
+    private DatabaseReference databaseReference;
     private FloatingActionButton floatingActionButton;
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
@@ -48,6 +50,8 @@ public class DonateSocial extends Fragment {
                 startActivity(intent);
             }
         });
+       databaseReference = FirebaseDatabase.getInstance().getReference().child("Users");
+
 
         mAuth = FirebaseAuth.getInstance();
         mAuthListener = new FirebaseAuth.AuthStateListener() {
@@ -57,10 +61,32 @@ public class DonateSocial extends Fragment {
                     floatingActionButton.setVisibility(View.INVISIBLE);
                 }
                 else{
-                    floatingActionButton.setVisibility(VISIBLE);
+                    databaseReference.child(mAuth.getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                        if(dataSnapshot.child("Selected").exists()){
+                            if(dataSnapshot.child("Selected").getValue().equals("Customer")) {
+                                floatingActionButton.setVisibility(View.INVISIBLE);
+                            }
+                            else if(!dataSnapshot.child("Selected").getValue().equals("Customer")) {
+                                floatingActionButton.setVisibility(View.VISIBLE);
+                            }
+                         }
+                         else if(!dataSnapshot.child("Selected").exists()){
+                            floatingActionButton.setVisibility(View.INVISIBLE);
+                         }
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+
                 }
             }
         };
+
         mDatabase = FirebaseDatabase.getInstance().getReference().child("Jaiboon");
 
 
@@ -101,31 +127,20 @@ public class DonateSocial extends Fragment {
     public static class InstaViewHolde extends RecyclerView.ViewHolder{
         View mView;
         public InstaViewHolde(View itemView) {
-            //if(itemView.is)
             super(itemView);
-           mView = itemView;
-        }
-        public  View del() {
-            //if(itemView.is)
-            return  mView;
+            mView = itemView;
         }
         public void setTitle(String title){
-            if(!title.equals("")) {
-                TextView post_title = (TextView) mView.findViewById(R.id.textTitle);
-                post_title.setText(title);
-            }
+            TextView post_title = (TextView) mView.findViewById(R.id.textTitle);
+            post_title.setText(title);
         }
         public void setDesc(String desc){
-            if(!desc.equals("")) {
-                TextView post_desc = (TextView) mView.findViewById(R.id.textDescription);
-                post_desc.setText(desc);
-            }
+            TextView post_desc = (TextView) mView.findViewById(R.id.textDescription);
+            post_desc.setText(desc);
         }
         public void setImage(Context ctx,String image){
-            if(!image.equals("")) {
-                ImageView post_image = (ImageView) mView.findViewById(R.id.post_image);
-                Picasso.with(ctx).load(image).into(post_image);
-            }
+           ImageView post_image = (ImageView) mView.findViewById(R.id.post_image);
+           Picasso.with(ctx).load(image).into(post_image);
         }
     }
 }
