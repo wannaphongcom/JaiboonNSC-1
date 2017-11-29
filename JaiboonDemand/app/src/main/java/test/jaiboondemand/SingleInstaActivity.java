@@ -61,10 +61,14 @@ public class SingleInstaActivity extends AppCompatActivity {
                 catch(Exception e){
                     user_id ="";
                 }
-
+                try {
                 if((user_id.equals(mAuth.getUid()))==false){
                     bn_del.setVisibility(View.INVISIBLE);
                     bn_edit.setVisibility(View.INVISIBLE);
+                }
+                }
+                catch(Exception e){
+                    
                 }
 
                 mCollapsing.setTitle(post_title);
