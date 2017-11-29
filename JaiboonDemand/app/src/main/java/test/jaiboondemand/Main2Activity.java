@@ -239,6 +239,11 @@ public class Main2Activity extends AppCompatActivity {
                     FragmentTransaction xfragmentTransaction = mFragmentManager.beginTransaction();
                     xfragmentTransaction.replace(R.id.containerView,new
                             TabHostDonate()).commit(); }
+                if (menuItem.getItemId() == R.id.nav_userpost) {
+                    FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
+                    fragmentTransaction.replace(R.id.containerView,new
+                            UserPost()).commit();
+                }
 
                 if(menuItem.getItemId() == R.id.Log_Out){
                     AlertDialog.Builder dialog = new AlertDialog.Builder(Main2Activity.this);
