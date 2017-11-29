@@ -9,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -74,6 +75,10 @@ public class SignUp extends Fragment {
 
                                     Toast.makeText(getContext(), "Success !!", Toast.LENGTH_SHORT).show();
 
+                                }
+                                else {
+                                    mProgress.dismiss();
+                                    Toast.makeText(getContext(), "กรุณากรอกอีเมลหรือรหัสผ่านใหม่ !!", Toast.LENGTH_LONG).show();
                                 }
                             }
 
