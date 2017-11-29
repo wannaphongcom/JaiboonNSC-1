@@ -14,6 +14,13 @@
        <Button
            android:layout_width="match_parent"
            android:layout_height="wrap_content"
+           android:text="Edit Post"
+           android:id="@+id/editpost1"
+           android:onClick="toeditPost"
+           />
+       <Button
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
            android:text="Delete Post"
            android:id="@+id/singleDesc1"
            android:onClick="deleleteButtonClicked"

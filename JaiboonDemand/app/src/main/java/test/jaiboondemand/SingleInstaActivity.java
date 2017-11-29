@@ -25,7 +25,7 @@ public class SingleInstaActivity extends AppCompatActivity {
     private ImageView singlePostImage;
     private FirebaseAuth mAuth;
     private TextView singlePostDesc;
-    private Button bn_del;
+    private Button bn_del,bn_edit;
     private CollapsingToolbarLayout mCollapsing = null;
     private String post_key;
 
@@ -43,6 +43,7 @@ public class SingleInstaActivity extends AppCompatActivity {
         singlePostDesc = (TextView) findViewById(R.id.singleDesc);
         singlePostImage = (ImageView) findViewById(R.id.Image_single);
         bn_del = (Button) findViewById(R.id.singleDesc1);
+        bn_edit=(Button) findViewById(R.id.editpost1);
 
         mCollapsing = (CollapsingToolbarLayout) findViewById(R.id.toolbar_layout);
 
@@ -63,8 +64,8 @@ public class SingleInstaActivity extends AppCompatActivity {
 
                 if((user_id.equals(mAuth.getUid()))==false){
                     bn_del.setVisibility(View.INVISIBLE);
+                    bn_edit.setVisibility(View.INVISIBLE);
                 }
-
 
                 mCollapsing.setTitle(post_title);
                 singlePostDesc.setText(post_desc);
@@ -79,7 +80,12 @@ public class SingleInstaActivity extends AppCompatActivity {
     }
     public void deleleteButtonClicked(View view) {
         mDatabase.child(post_key).removeValue();
-        Intent mainIntent = new Intent(this,MainActivity.class);
+        Intent mainIntent = new Intent(this,Main2Activity.class);
         startActivity(mainIntent);
+    }
+    public void toeditPost(View view) {
+        Intent singleInstaActivity1 = new Intent(this, EditPost.class);
+        singleInstaActivity1.putExtra("PostID", post_key);
+        startActivity(singleInstaActivity1);
     }
 }
