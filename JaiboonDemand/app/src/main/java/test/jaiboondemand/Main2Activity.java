@@ -163,7 +163,9 @@ public class Main2Activity extends AppCompatActivity {
 
                 }
                 if(menuItem.getItemId() == R.id.my_post){
-
+                    FragmentTransaction xfragmentTransaction = mFragmentManager.beginTransaction();
+                    xfragmentTransaction.replace(R.id.containerView,new
+                            UserPost()).commit();
                 }
                 if(menuItem.getItemId() == R.id.add_deposit){
 
