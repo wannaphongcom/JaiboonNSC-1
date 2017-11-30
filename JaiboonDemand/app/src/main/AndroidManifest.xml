@@ -49,14 +49,14 @@
         <activity android:name=".AdminManager" />
         <activity android:name=".AdminPost" />
         <activity android:name=".ShopManager" />
-        <activity android:name=".EditPost" />
         <activity
             android:name=".CateGoryUser"
             android:theme="@style/Theme.AppCompat.Dialog" />
         <activity android:name=".ProfileTemple" />
         <activity android:name=".ProfileFoundation" />
         <activity android:name=".ProfileCustomer" />
-        <activity android:name=".foundation_donate"></activity>
+        <activity android:name=".foundation_donate" />
+        <activity android:name=".UserPost"></activity>
     </application>
 
 </manifest>
